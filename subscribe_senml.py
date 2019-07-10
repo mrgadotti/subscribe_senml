@@ -2,13 +2,11 @@ import paho.mqtt.client as mqtt
 import sys
 import json
 
-# definicoes:
 host = "pp5mgt.duckdns.org"
 port = 8442
 keep_alive = 60
 topic = "itg200/+/measurement"  # dica: troque o nome do topico por algo "unico",
-# Dessa maneira, ninguem ira saber seu topico de
-# subscribe e interferir em seus testes
+
 def on_connect(client, userdata, flags, rc):
     print("[STATUS] Conected: " + str(rc))
     client.subscribe(topic)
@@ -19,10 +17,6 @@ def on_message(client, userdata, msg):
     # print(msg.topic + " > " + str(msg.payload,'utf-8'))
     #print(f"[MESSAGE] {received_var}")
     print_senml(received_var)
-    print_senml_bin(received_var)
-    print("OK")
-    # json_data = json.loads(received_var)
-    # print(json_data[0]["bn"])
 
 
 def print_senml(msg):
