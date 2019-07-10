@@ -1,6 +1,7 @@
 import paho.mqtt.client as mqtt
 import sys
 import json
+from datetime import datetime
 
 host = "pp5mgt.duckdns.org"
 port = 8442
@@ -23,16 +24,20 @@ def print_senml(msg):
     json_data = json.loads(msg)
     #print (json_data)
     try:
+        read_timestamp = int(json_data[0]["bt"] / 1000000)
+        dt_object = datetime.fromtimestamp(read_timestamp)
+        dt_read_time = dt_object.strftime('%Y-%m-%d %H:%M:%S')
+
         print(
             f'[MESSAGE]'
-            f' MAC: {json_data[0]["bn"]} Timestamp: {json_data[0]["bt"]}' 
+            f' MAC: {json_data[0]["bn"]} Time: {dt_read_time}' 
             f' Model: {json_data[1]["vs"]} Name: {json_data[2]["n"]}'
             f' Value: {json_data[2]["v"]} {json_data[2]["u"]}'
         )
     except:
         print(
             f'[MESSAGE]'
-            f' MAC: {json_data[0]["bn"]} Timestamp: {json_data[0]["bt"]}' 
+            f' MAC: {json_data[0]["bn"]} Time: {dt_read_time}' 
             f' Model: {json_data[1]["vs"]} Name: {json_data[2]["n"]}'
             f' Value: {json_data[2]["vb"]}'
         )
