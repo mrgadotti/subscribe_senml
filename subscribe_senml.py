@@ -3,10 +3,10 @@ import sys
 import json
 from datetime import datetime
 
-host = "pp5mgt.duckdns.org"
-port = 8442
+host = "mqtt.eclipse.org"
+port = 1883
 keep_alive = 60
-topic = "itg200/+/measurement"  # dica: troque o nome do topico por algo "unico",
+topic = "faustao/#"  
 
 def on_connect(client, userdata, flags, rc):
     print("[STATUS] Conected: " + str(rc))
